@@ -1,0 +1,35 @@
+{
+    "name": "bfg/permission",
+    "description": "The ability to create and monitor the rules for the Laravel gates",
+    "type": "bfg-app",
+    "keywords": ["laravel", "extension", "permission"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bfg"
+        }
+    ],
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.0.0",
+        "bfg/installer": "*",
+        "bfg/entity": "*",
+        "bfg/object": "*"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Bfg\\Permission\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bfg\\Permission\\ServiceProvider"
+            ]
+        }
+    }
+}
