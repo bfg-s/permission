@@ -1,11 +1,39 @@
 # Extension permission
 
 ## Install
-Install as dependency.
+1. Install as dependency:
 ```bash
 composer require bfg/permission
 ```
-Install resources and tables.
+
+2. Set up for mode `Permission` trait:
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use App\Models\Traits\User\UserHasRole;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Bfg\Permission\Traits\Permissions;
+
+/**
+ * User Class
+ * @package App\Models
+ */
+class User extends Authenticatable
+{
+    use Notifiable, 
+        UserHasRole, 
+        HasFactory, 
+        Permissions; // Like this
+    
+    // ...
+}
+```
+
+3. Install resources and tables:
 ```bash
 php artisan install bfg/permission
 ```

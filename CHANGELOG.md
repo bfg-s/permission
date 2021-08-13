@@ -1,1 +1,1 @@
-# ChangelogAll notable changes to this project will be documented in this file.## [0.0.1 - Beta] - 2021-07-31### Added- License mit.- Readme documentation file.- Initial functionality of the package.
+# ChangelogAll notable changes to this project will be documented in this file.## [0.0.2 - Beta] - 2021-08-13### Fixed- Gate factory, `false` for default trap `or`.### Added- Readme information in documentation file.## [0.0.1 - Beta] - 2021-07-31### Added- License mit.- Readme documentation file.- Initial functionality of the package.
