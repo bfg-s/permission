@@ -14,9 +14,10 @@ use Bfg\Permission\Models\PermissionSeeds;
 use Bfg\Permission\Models\Role;
 use Bfg\Permission\Traits\Permissions;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Jetstream\Jetstream;
 
 /**
- * Class ServiceProvider
+ * Class ServiceProvider.
  * @package Bfg\Permission
  */
 class ServiceProvider extends InstalledProvider
@@ -28,7 +29,7 @@ class ServiceProvider extends InstalledProvider
     public bool $installed = true;
 
     /**
-     * Register route settings
+     * Register route settings.
      * @return void
      * @throws \ReflectionException
      */
@@ -37,7 +38,7 @@ class ServiceProvider extends InstalledProvider
         parent::register();
 
         /**
-         * Register commands
+         * Register commands.
          */
         $this->commands([
             PermissionsCommand::class,
@@ -45,27 +46,32 @@ class ServiceProvider extends InstalledProvider
             DisallowCommand::class,
             PermissionDeleteCommand::class,
         ]);
+    }
 
+    public function boot()
+    {
         /**
-         * Merge config from having by default
+         * Merge config from having by default.
          */
         $this->mergeConfigFrom(
             __DIR__.'/../config/permission.php', 'permission'
         );
 
         /**
-         * Register publisher scaffold configs
+         * Register publisher scaffold configs.
          */
         $this->publishes([
             __DIR__.'/../config/permission.php' => config_path('permission.php'),
         ], 'permission-config');
 
         /**
-         * Register publisher migrations
+         * Register publisher migrations.
          */
         $this->publishes([
             __DIR__.'/../database/migrations' => database_path('/migrations'),
         ], 'permission-migrations');
+
+        parent::boot();
     }
 
     /**
@@ -108,15 +114,14 @@ class ServiceProvider extends InstalledProvider
         parent::install($processor);
 
         $processor->command->call('vendor:publish', [
-            '--tag' => 'permission-config'
+            '--tag' => 'permission-config',
         ]);
 
-        if (!\Schema::hasTable('roles')) {
-
-            $processor->migrate(__DIR__ . '/../database/migrations');
+        if (! \Schema::hasTable('roles')) {
+            $processor->publish(__DIR__.'/../database/migrations', database_path('migrations'));
 
             $processor->command->call('db:seed', [
-                '--class' => PermissionSeeds::class
+                '--class' => PermissionSeeds::class,
             ]);
         }
     }
@@ -128,7 +133,6 @@ class ServiceProvider extends InstalledProvider
     {
         parent::uninstall($processor);
 
-        $processor->migrateRollback(__DIR__ . '/../database/migrations', true);
+        $processor->unpublish(__DIR__.'/../database/migrations', database_path('migrations'));
     }
 }
-
