@@ -26,7 +26,7 @@ class ServiceProvider extends InstalledProvider
      * Set as installed by default.
      * @var bool
      */
-    public bool $installed = true;
+    public bool $installed = false;
 
     /**
      * Register route settings.
