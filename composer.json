@@ -12,6 +12,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">=8.0.0",
+        "bfg/repository": "*",
         "bfg/installer": "*",
         "bfg/entity": "*",
         "bfg/object": "*"

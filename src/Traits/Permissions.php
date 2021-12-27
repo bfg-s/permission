@@ -135,4 +135,13 @@ trait Permissions
     {
         return $this->hasRole('moderator');
     }
+
+    /**
+     * Check if guest.
+     * @return bool
+     */
+    public function isGuest(): bool
+    {
+        return $this->hasRole('guest');
+    }
 }
